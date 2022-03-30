@@ -144,12 +144,11 @@ class Car {
     if (distance <= milesCanDrive) {
       this.odometer = this.odometer + distance
       this.tank = this.tank - (distance / this.mpg)
-      return this.odometer
     } else {
       this.odometer = this.odometer + milesCanDrive
       this.tank = 0
-      return this.odometer
     }
+    return this.odometer
   }
 
   /**
@@ -164,7 +163,13 @@ class Car {
    * focus.refuel(99) // returns 600 (tank only holds 20)
    */
   refuel(gallons) {
-    
+    const totalGallons = this.tankSize - this.tank
+    if (gallons <= totalGallons) {
+      this.tank = this.tank + gallons
+    } else {
+      this.tank = this.tankSize
+    }
+    return this.tank * this.mpg
   }
 }
 
@@ -182,7 +187,10 @@ class Car {
  * })
  */
 function isEvenNumberAsync(number) {
-  // ✨ implement
+  if (number % 2 === 0 ) {
+    return Promise.resolve(true)
+  }
+  return Promise.resolve(false)
 }
 
 module.exports = {
